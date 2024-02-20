@@ -1,0 +1,64 @@
+.input-grey {
+    background-color: #121212 !important;
+    color: white !important;
+    border-radius: 20px;
+    padding: 15px;
+    width: 90%;
+}
+
+.input-grey:hover {
+    border: 2px solid #1ed760;
+}
+
+.input-grey:focus {
+    border: 2px solid #1ed760;
+}
+
+.section {
+    background-color: #121212 !important;
+    border-radius: 10px;
+    padding: 20px 40px 20px 40px;
+}
+
+.card-song {
+    background-color: #282828 !important;
+    color: white !important;
+    border-radius: 10px;
+}
+
+.card-song:hover {
+    border: 2px solid #1ed760;
+}
+
+.custom-audio {
+    width: 90%;
+}
+
+.custom-audio audio {
+    background-color: red;
+    width: 100%;
+    border: 1px solid red;
+}
+
+#description hr {
+    border-color: white !important;
+    width: 95%;
+    margin: 25px 0px 25px 0px;
+}
+
+.lyrics-container {
+    column-count: 2;
+    column-gap: 20px;
+    white-space: pre-line;
+}
+
+#lyrics hr {
+    border-color: white !important;
+    width: 95%;
+}
+
+.qr-accordion{
+    margin-top: 25px;
+    background: linear-gradient(to bottom, #512126, #121212) !important;
+    color: white !important;
+}

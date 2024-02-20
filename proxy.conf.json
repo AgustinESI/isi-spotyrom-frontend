@@ -1,0 +1,17 @@
+{
+  "/songs/*": {
+    "target": "https://api.genius.com",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/search/*": {
+    "target": "https://api.genius.com",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/v1/*": {
+    "target": "https://api.qrserver.com",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

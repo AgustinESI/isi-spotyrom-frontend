@@ -1,0 +1,188 @@
+<div class="container" style="min-height: 500px">
+  <div class="row mt-5">
+    <div class="input-group">
+      <input
+        type="text"
+        [ngClass]="{ loading: isLoading }"
+        [spellcheck]="false"
+        placeholder="¿Qué te apetece buscar?"
+        class="form-control input-grey"
+        (ngModelChange)="search($event)"
+        [(ngModel)]="src"
+        aria-label="Text input with dropdown button"
+      />
+    </div>
+  </div>
+  <div class="row mt-5" id="description">
+    <div class="col col-lg-6 col-12">
+      <section class="section">
+        <h4 class="white-text mb-4">Resultados búsqueda</h4>
+
+        <div class="results" *ngIf="data$ | async as data; else noResults">
+          <div
+            class="card card-song mb-4"
+            *ngFor="let item of data$ | async"
+            (click)="handleCardClick(item)"
+          >
+            <div class="row no-gutters">
+              <div class="col-md-4">
+                <img
+                  class="card-img"
+                  [src]="item.album.images[0].url"
+                  alt="Card image"
+                />
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">{{ item.name }}</h5>
+                  <p class="card-text small">
+                    Álbum: {{ item.album.name }} <br />
+                    Artista: {{ item.album.artists[0].name }}
+                  </p>
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted"
+                    >Haz click para más información</small
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ng-template #noResults>
+          <p class="small white-text">No hay resultados</p>
+        </ng-template>
+      </section>
+    </div>
+    <div class="col col-lg-6 col-12" *ngIf="loadinfo === true" [@fadeInOut]>
+      <section class="section white-text">
+        <div class="row">
+          <div class="row" *ngIf="song && song.album_name" [@fadeInOut]>
+            <h4 class="white-text mb-4">Descripción</h4>
+            <p><strong>Nombre Álbum:</strong> {{ this.song.album_name }}</p>
+            <p><strong>Fecha:</strong> {{ this.song.date }}</p>
+            <div>
+              <strong>Artistas:</strong>
+              <ul>
+                <li *ngFor="let artist of this.song.artists">{{ artist }}</li>
+              </ul>
+            </div>
+            <p class="justified-text">
+              <strong>Descripción:</strong>
+            </p>
+          </div>
+          <div class="row" *ngIf="song && song.parental">
+            <hr />
+            <div class="col col-6">
+              <img
+                class="card-img"
+                src="../../assets/icons/parental_advisory.png"
+                alt="Card image"
+              />
+            </div>
+
+            <div class="col col-6">
+              <p class="white-text small">
+                La etiqueta "Parental Advisory: Explicit Content" advierte que
+                la música puede contener contenido explícito o inapropiado para
+                ciertos públicos, alertando especialmente a los padres sobre
+                lenguaje fuerte o temas adultos.
+              </p>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="this.song.audio or this.song.qr">
+            <hr />
+            <h4 class="white-text mb-4">Reproductor</h4>
+
+            <div class="row">
+              <audio controls *ngIf="this.song.audio">
+                <source [src]="this.song.audio" type="audio/mp3" />
+                Your browser does not support the audio tag.
+              </audio>
+            </div>
+            <div class="row">
+              <div
+                class="accordion accordion-flush"
+                id="accordionFlushExample"
+                *ngIf="this.song.qr"
+              >
+                <div class="qr-accordion accordion-item">
+                  <h2 class="accordion-header" id="flush-headingOne">
+                    <button
+                      class="qr-accordion accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#flush-collapseOne"
+                      aria-expanded="false"
+                      aria-controls="flush-collapseOne"
+                    >
+                      Abrir en Spotify
+                    </button>
+                  </h2>
+                  <div
+                    id="flush-collapseOne"
+                    class="accordion-collapse collapse"
+                    aria-labelledby="flush-headingOne"
+                    data-bs-parent="#accordionFlushExample"
+                  >
+                    <div class="accordion-body">
+                      <div
+                        class="row align-items-center justify-content-center"
+                      >
+                        <span class="small mb-4"
+                          >Escanea el código QR para abrir en Spotify</span
+                        >
+                        <img
+                          [src]="this.song.qr"
+                          alt="QR Code"
+                          style="width: 35%"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="this.song.youtube">
+            <hr />
+            <h4 class="white-text mb-4">Videoclip</h4>
+            <span class="white-text small mb-3">{{
+              this.song.youtube_name
+            }}</span>
+            <div class="embed-responsive embed-responsive-16by9">
+              <iframe
+                class="embed-responsive-item"
+                [src]="get_sanitizedYouTubeUrl(this.song.youtube)"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div
+      *ngIf="loadinfo === false"
+      class="col col-lg-6 col-12 d-flex align-items-center justify-content-center"
+    >
+      <div class="spinner-border text-success" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4" *ngIf="this.song.lyrics" id="lyrics">
+    <section class="section">
+      <div class="row">
+        <h4 class="white-text mb-4">Letra</h4>
+        <hr />
+        <p class="white-text lyrics-container">
+          {{ this.song.lyrics }}
+        </p>
+      </div>
+    </section>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+.icon-image {
+  margin: 10px;
+  color: white !important;
+}
+
+.sub-nav-bar {
+  color: white;
+  margin-right: 10px;
+}
+
+#nav-bar {
+  background-color: #121212 !important;
+  border-radius: 10px;
+  border-bottom: 10px solid #1ed760;
+}
