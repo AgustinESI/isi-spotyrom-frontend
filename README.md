@@ -12,7 +12,7 @@ Additionally, the system has been developed using agile SCRUM methodologies, pla
 - Sprint 4 (April 16)
 
 ## Startup service
-
+Build `npm install --force` for installing the app.
 Run `npm start` for starting the app. It will open automatically the path `http://localhost:4200/` in your default browser. 
 
 
