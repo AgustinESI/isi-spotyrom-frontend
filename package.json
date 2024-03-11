@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --o --host 0.0.0.0 --proxy-config proxy.conf.json",
+    "start": "ng serve --o --disable-host-check --proxy-config proxy.conf.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -27,12 +27,19 @@
     "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.11.3",
     "express": "^4.18.2",
+    "firebase": "^10.8.0",
     "jquery": "^3.7.1",
+    "node-polyfill-webpack-plugin": "^3.0.0",
+    "path-browserify": "^1.0.1",
+    "polyfills": "^2.1.1",
     "rxjs": "~7.8.0",
+    "stream": "^0.0.2",
+    "timers": "^0.1.1",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
   },
   "devDependencies": {
+    "@angular-builders/custom-webpack": "^17.0.1",
     "@angular-devkit/build-angular": "^17.0.10",
     "@angular/cli": "^17.0.10",
     "@angular/compiler-cli": "^17.0.0",

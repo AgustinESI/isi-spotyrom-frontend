@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-12 col-lg-10">
+        <div class="wrap d-md-flex">
+          <img src="../../assets/icons/Spotify_logo." style="height: 65%; width: 35%;" class="img-fluid" />
+          <div class="login-wrap p-4 p-md-5">
+            
+              <h1 class="h3 mb-3 fw-normal">Register</h1>
+              <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInputName" #nameInput />
+                <label for="floatingUsername"><i class="bi bi-person-fill"></i>  Username</label> <br>
+              </div>
+            
+              <div class="form-floating">
+                <input type="email" class="form-control" id="floatingInputEmail" #emailInput />
+                <label for="floatingEmail"><i class="bi bi-envelope-fill"></i>  Email</label><br>
+              </div>
+            
+              <div class="form-floating">
+                <input type="password" class="form-control" id="floatingPassword1" #pwd1Input />
+                <label for="floatingPassword1"><i class="bi bi-lock-fill"></i>  Password 1</label>
+              </div>
+            
+              <div class="form-floating mt-4 mb-4">
+                <input type="password" class="form-control" id="floatingPassword2" #pwd2Input />
+                <label for="floatingPassword2"><i class="bi bi-lock-fill"></i>  Password 2</label>
+              </div>
+            
+              <button class="w-100 btn btn-lg btn-primary" (click)="doRegister(nameInput.value, emailInput.value, pwd1Input.value, pwd2Input.value)" id="register">
+                <i class="bi bi-person-add"></i>  Register
+              </button>
+            
+            <p class="text-center">Already a member? <a class="nav-link" routerLink="/login">Sign in</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button style="margin-bottom: 500px;" class="w-100 btn btn-lg btn-primary" id="KK" (click)="signInWithEmailAndPassword()">
+    <i class="bi bi-person-add"></i>  CIPOTE
+  </button>
+  

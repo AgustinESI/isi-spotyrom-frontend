@@ -26,3 +26,12 @@ export const youtube_enviroment = {
 export const qr_enviroment = {
     url_search: '/v1/create-qr-code/'
 }
+
+export const firebase_enviorement = {
+    apiKey: "AIzaSyDwyGJDD_pmW8vujPxUhOdw3ZHhZ4cnO6M",
+    authDomain: "isi-esi.firebaseapp.com",
+    projectId: "isi-esi",
+    storageBucket: "isi-esi.appspot.com",
+    messagingSenderId: "94353365509",
+    appId: "1:94353365509:web:30865ab39fee56842d5a6c"
+  };
