@@ -6,6 +6,7 @@ import { fromEvent, of } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { Song } from '../song.model';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import User from '../interfaces/user.interfaces';
 
 
 
@@ -21,6 +22,7 @@ export class HomeComponent implements OnInit {
   private _token: string = '';
   public song: Song = new Song();
   public loadinfo: boolean | undefined = undefined;
+  public logedUser!: User;
 
   constructor(private spotifyService: SpotifyService, private sanitizer: DomSanitizer) {
   }
@@ -36,6 +38,12 @@ export class HomeComponent implements OnInit {
         console.log(error);
       }
     );
+
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      this.logedUser = JSON.parse(storedUser);
+      console.log(this.logedUser);
+    }
 
   }
 

@@ -1,14 +1,11 @@
-import { Component } from '@angular/core';
-import { initializeApp } from 'firebase/app';
-import { FormControl, FormGroup } from '@angular/forms';
-import { firebase_enviorement } from '../../enviorements/environment';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { Component, OnInit } from '@angular/core';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore"; 
-import { getFirestore } from "firebase/firestore";
-import { collection } from "firebase/firestore";
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { UsersService } from '../services/users.service';
+import User from '../interfaces/user.interfaces';
+import { Firestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-authentication',
@@ -17,104 +14,77 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './authentication.component.html',
   styleUrl: './authentication.component.css'
 })
-export class AuthenticationComponent {
+export class AuthenticationComponent implements OnInit {
 
-  public name: string = '';
-  public email: string = '';
-  public pwd1: string = '';
-  public pwd2: string = '';
   public uuid: string = '';
-  public db: any; 
+  public firestore!: Firestore;
+  private users!: User[];
+  public logedUser!: User;
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient, private userService: UsersService) { }
 
   ngOnInit(): void {
-    const app = initializeApp(firebase_enviorement);
-    this.db = getFirestore(app);
-    const alovelaceDocumentRef = doc(this.db, 'users', 'prueba');
+    this.userService.getUsers().subscribe((users) => {
+      console.log('List of users', users);
+    });
   }
 
 
   public async doRegister(username: string, email: string, password1: string, password2: string) {
-    this.name = username;
-    this.email = email;
-    this.pwd1 = password1; 
-    this.pwd2 = password1;
-
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(this.email)) {
+    if (!emailRegex.test(email)) {
       alert('Invalid email format');
       return;
     }
 
-    if (this.pwd1 !== this.pwd2) {
+    if (password1 !== password2) {
       alert('Passwords do not match');
       return;
     }
-    
+
+    this.logedUser = {
+      password: password1,
+      phone: '',
+      premiun: true,
+      uid: '',
+      username: username,
+      email: email
+    };
+
     this.createUserWithEmailAndPassword();
 
-
-    /*
-    console.log(this.db)
-    var docRef = await setDoc(doc(this.db, "user", this.email), {
-      password: this.pwd1,
-      username: this.name,
-      premiun: true,
-      uid: this.uuid,
-      phone: '666 66 66 66'
-    });
-
-    
-    console.log("Document written with ID: ", docRef);
-    */
   }
 
-  public createUserWithEmailAndPassword() {
+  public createUserWithEmailAndPassword(): string {
+    var uuid: string = '';
     const auth = getAuth();
-    createUserWithEmailAndPassword(auth, this.email, this.pwd1)
+    createUserWithEmailAndPassword(auth, this.logedUser.email, this.logedUser.password)
       .then((userCredential) => {
         // Signed up 
         const user = userCredential.user;
-        console.log(user);
-        localStorage.setItem('active', "false");
-        if (user.email) {
-          localStorage.setItem('user_name', user.email);
+        this.logedUser.uid = user.uid;
+        try {
+          const response = this.userService.addUser(this.logedUser);
+          console.log("Response ", response);
+          localStorage.setItem('user', JSON.stringify(this.logedUser));
+
+          setTimeout(() => {
+            window.location.href = "/";
+          }, 2000);
+
+        } catch (exception) {
+          alert('Error creating user');
         }
-        localStorage.setItem('user_id', user.uid);
-        this.uuid = user.uid;
+
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode + " " + errorMessage);
       });
-  }
 
-  public signInWithEmailAndPassword() {
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, "cherry@gmail.com", "this.pwd1")
-      .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        console.log(user);
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode + " " + errorMessage)
-      });
-  }
-
-  public signOut() {
-    const auth = getAuth();
-    signOut(auth).then(() => {
-      // Sign-out successful.
-    }).catch((error) => {
-      // An error happened.
-    });
+    return uuid;
   }
 
   loginGoogle() {

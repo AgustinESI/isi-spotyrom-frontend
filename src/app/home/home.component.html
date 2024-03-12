@@ -1,4 +1,8 @@
 <div class="container" style="min-height: 500px">
+
+  <div class="row mt-5" *ngIf="this.logedUser==null || this.logedUser.premiun === false">
+    <img class="img-fluid" alt="Card image" src="../../assets/banners/avertisment_banner.gif"/>
+  </div>
   <div class="row mt-5">
     <div class="input-group">
       <input
@@ -51,7 +55,7 @@
         </div>
 
         <ng-template #noResults>
-          <p class="small white-text">No hay resultados</p>
+          <p class="small white-text mt-5 mb-5">No hay resultados</p>
         </ng-template>
       </section>
     </div>
@@ -163,7 +167,6 @@
         </div>
       </section>
     </div>
-
     <div
       *ngIf="loadinfo === false"
       class="col col-lg-6 col-12 d-flex align-items-center justify-content-center"

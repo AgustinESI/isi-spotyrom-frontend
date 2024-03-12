@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav-bar">
   <a class="navbar-brand icon-image" href="#">
     <img
-      src="../../assets/icons/Spotify_logo.webp"
+      src="../../assets/icons/spotify_logo.png"
       width="30"
       height="30"
       class="d-inline-block align-top mr-3"
@@ -14,17 +14,27 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse white-text" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link white-text" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link white-text" routerLink="about">About</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link white-text" href="#">Pricing</a>
-      </li>
-    </ul>
+    <div class="container-fluid">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link white-text" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link white-text" routerLink="about">About</a>
+        </li>
+        <li class="nav-item" *ngIf="this.logedUser ==null">
+          <a class="nav-link white-text" routerLink="authenticate">Authenticate</a>
+        </li>
+        <li class="nav-item" *ngIf="this.logedUser ==null">
+          <a class="nav-link white-text" routerLink="login">Login</a>
+        </li>
+        <li class="nav-item my-2 my-lg-0 ml-auto" *ngIf="this.logedUser !=null">
+          <form class="d-flex">
+            <button  class="btn btn-danger btn-sm mt-1" (click)="this.clearLocalStorage()">LogOut</button >
+          </form>
+        </li>
+      </ul>
+    </div>
   </div>
 
 </nav>
