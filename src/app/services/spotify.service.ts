@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { spotify_environment, lyrics_enviroment, genius_enviroment, youtube_enviroment, qr_enviroment } from '../enviorements/environment';
+import { spotify_environment, lyrics_enviroment, genius_enviroment, youtube_enviroment, qr_enviroment } from '../../enviorements/environment';
 import { Observable } from 'rxjs';
 
 @Injectable({

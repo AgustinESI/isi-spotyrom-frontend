@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
-import { SpotifyService } from '../spotify.service';
+import { SpotifyService } from '../services/spotify.service';
 import { debounceTime, finalize, map, switchMap, tap } from 'rxjs/operators';
 import { fromEvent, of } from 'rxjs';
 import { FormControl } from '@angular/forms';
