@@ -40,3 +40,19 @@ const app = initializeApp(firebaseConfig);
 ```
 npm install firebase
 npm install -g firebase-tools
+
+
+# Docker
+
+## Create docker image, 
+
+1. Install Extension `Docker` into `Visual Studio`
+2. After installing, open ``Dockerfile`` file and do rigth click and click ``Build Image`` and press enter
+
+## Executing Docker Image
+
+1. Open terminal
+2. Execute the following commands
+    ``` terminal
+      docker run -p 8080:4200 isispotyromfrontend   
+    ```

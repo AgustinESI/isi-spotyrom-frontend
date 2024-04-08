@@ -34,7 +34,6 @@ export class HomeComponent implements OnInit {
         this._token = data.access_token;
       },
       (error) => {
-        alert('Error:' + error.error.message);
         console.log(error);
       }
     );
@@ -97,13 +96,13 @@ export class HomeComponent implements OnInit {
             this.song.date = response.response.song.album.release_date_for_display;
           },
           (error) => {
-            alert('Error:' + error.error);
+            console.log('Error search_song_genius:', error.error);
           }
         );
 
       },
       (error) => {
-        alert('Error:' + error.error);
+        console.log('Error: search_genius', error.error);
       }
     );
 

@@ -71,7 +71,6 @@ export class SpotifyService {
     const params = new HttpParams()
       .set('size', '150x150')
       .set('data', q);
-    console.log('CIPOTE', url)
 
     return this.httpClient.get(url + q);
   }
