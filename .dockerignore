@@ -1,0 +1,23 @@
+# Ignore node_modules directory
+node_modules
+
+# Ignore build output directories
+dist
+out
+
+# Ignore development files
+*.ts
+*.map
+
+# Ignore editor-specific files
+.vscode
+.idea
+*.iml
+
+# Ignore npm-related files
+package-lock.json
+npm-debug.log
+
+# Ignore test and configuration files
+karma.conf.js
+protractor.conf.js
